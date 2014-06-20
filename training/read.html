@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aura HealthCare</title>
+
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="dist/css/bootstrapValidator.css"/>
+
+    <!-- Include the FontAwesome CSS if you want to use feedback icons provided by FontAwesome -->
+    <!--<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />-->
+
+    <script type="text/javascript" src="vendor/jquery/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="dist/js/bootstrapValidator.js"></script>
+</head>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    
+
+    $('#profileForm').bootstrapValidator({
+//        live: 'disabled',
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            firstName: {
+                validators: {
+                    notEmpty: {
+                        message: 'The first name is required and cannot be empty'
+                    }
+                }
+            },
+            lastName: {
+                validators: {
+                    notEmpty: {
+                        message: 'The last name is required and cannot be empty'
+                    }
+                }
+            },
+            hcnumber: {
+                message: 'The HC Number is not valid',
+                validators: {
+                    notEmpty: {
+                        message: 'The HC Number is required and cannot be empty'
+                    },
+                    stringLength: {
+                        min: 10,
+                        max: 10,
+                        message: 'The HC Number must be 10 characters long'
+                    },
+                    regexp: {
+                        regexp: /^[a-zA-Z0-9_\.]+$/,
+                        message: 'The username can only consist of alphabetical, number, dot and underscore'
+                    },
+                }
+            },
+
+            gp: {
+                message: 'The GP + Practice is not valid',
+                validators: {
+                    notEmpty: {
+                        message: 'The GP + Practice is required and cannot be empty'
+                    },
+                    
+                    regexp: {
+                        regexp: /^[a-zA-Z0-9_\.]+$/,
+                        message: 'The username can only consist of alphabetical, number, dot and underscore'
+                    },
+                }
+            },
+            
+            birthday: {
+                validators: {
+                    notEmpty: {
+                        message: 'The GP + Practice is required and cannot be empty'
+                    },
+                    date: {
+                        format: 'YYYY/MM/DD',
+                        message: 'The birthday is not valid'
+                    }
+                }
+            },
+            ward: {
+                validators: {
+                    notEmpty: {
+                        message: 'The ward is required'
+                    }
+                }
+            },
+            rating: {
+                validators: {
+                    notEmpty: {
+                        message: 'The rating is required'
+                    }
+                }
+            },
+            rate: {
+                validators: {
+                    notEmpty: {
+                        message: 'The rating is required'
+                    }
+                }
+            },
+            'services[]': {
+                validators: {
+                    choice: {
+                        min: 1,
+                        max: 6,
+                        message: 'Please choose a service, if none choose N/A'
+                    }
+                }
+            },
+
+            date: {
+                validators: {
+                    notEmpty: {
+                        message: 'The GP + Practice is required and cannot be empty'
+                    },
+                    date: {
+                        format: 'YYYY/MM/DD',
+                        message: 'The date selected is not valid'
+                    }
+                }
+            },
+
+
+        }
+    });
+});
+
+jQuery(document).ready(function ($) {
+        $('#tabs').tab();
+    });
+
+</script>
+
+
+
+
+
+
+<body>
+   
+   <div class = "navbar navbar-inverse navbar-static-top">
+                        <div class = "container">
+                               
+                                <a href = "#" class = "navbar-brand">Feedback Form</a>
+                               
+                                <button class = "navbar-toggle" data-toggle = "collapse" data-target = ".navHeaderCollapse">
+                                        <span class = "icon-bar"></span>
+                                        <span class = "icon-bar"></span>
+                                        <span class = "icon-bar"></span>
+                                </button>
+                               
+                                <div class = "collapse navbar-collapse navHeaderCollapse">
+                               
+                                        <ul class = "nav navbar-nav navbar-right">
+                                       
+                                                <li class = "active"><a href = "#">Home</a></li>
+                                                <li class = "dropdown">
+                                                       
+                                                        <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown">Social Media <b class = "caret"></b></a>
+                                                        <ul class = "dropdown-menu">
+                                                                <li><a href = "#">Twitter</a></li>
+                                                                <li><a href = "#">Facebook</a></li>
+                                                                <li><a href = "#">Google+</a></li>
+                                                                <li><a href = "#">Instagram</a></li>
+                                                        </ul>
+                                               
+                                                </li>
+                                                <li><a href = "#">Log Out</a></li>
+                                                <li><a href = "#contact" data-toggle="modal">Contact</a></li> <!--#contact opens the modal-->
+                                       
+                                        </ul>
+                               
+                                </div>
+                               
+                        </div>
+                </div>
+               
+                <div class = "container">
+               
+                        <div class = "jumbotron">
+                              
+                                 <img class="img-rounded" src = "img/logo.png" width = "100%">
+
+                        </div> <!--jumbotron-->
+               
+                </div> <!--container-->
+                <!--form-->
+                    <form id="profileForm" class="form-horizontal" action="" method="post" name="myform" onSubmit="return (validator())">
+               
+        <div class="container">
+
+        <!--TABS-->
+             
+             <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Tab</h2> <hr/>
+
+                        <!--TABS NAVIGATION-->
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#tab1" data-toggle="tab">Section 1</a></li>
+                            <li><a href="#tab2" data-toggle="tab">Section 2</a></li>
+                            <li><a href="#tab3" data-toggle="tab">Section 3</a></li>
+                            <li><a href="#tab4" data-toggle="tab">Section 4</a></li>
+                        </ul>
+
+                        <!--TABS SECTIONS-->
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab1">
+                            <div class = "row">
+               
+                
+               
+                <div class = "col-md-6">
+                   
+                    <h3><a href = "#">Patient Details</a></h3>
+
+                    
+
+                    <!--Full name-->
+                    <div class="form-group">
+                            <label class="col-lg-3 control-label">Full name</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="firstName" placeholder="First name" />
+                            </div>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="lastName" placeholder="Last name" />
+                            </div>
+                        </div>
+
+                    <!--Date of Birth-->
+                    <div class="form-group">
+                            <label class="col-lg-3 control-label">Birthday</label>
+                            <div class="col-lg-5">
+                                <input type="text" class="form-control" name="birthday" /> (YYYY/MM/DD)
+                            </div>
+                        </div>
+
+                    <!--HC Number-->
+                    <div class="form-group">
+                            <label class="col-lg-3 control-label">HC Number</label>
+                            <div class="col-lg-5">
+                                <input type="text" class="form-control" maxlength="10" name="hcnumber" id="NumbersOnly" />
+                            </div>
+                        </div>
+
+                    <!--Ward-->
+                    <div class="form-group">
+                            <label class="col-lg-3 control-label">Ward</label>
+                            <div class="col-lg-5">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="ward" value="0" /> example1
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="ward" value="1" /> example2
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="ward" value="2" /> example3
+                                    </label>
+                                </div>
+                            </div>
+                    </div>
+
+                    <!--Full name-->
+                    <div class="form-group">
+                            <label class="col-lg-3 control-label">GP + Practice</label>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="gp" placeholder="" />
+                            </div>
+                    </div>
+
+
+                   
+                </div> <!--col-md-6-->
+               
+                <div class = "col-md-6">
+                   
+                    <h3><a href = "#">Rate us</a></h3>
+                    <h3><p>How would you rate the care you have received</p></h3>
+                       <p>Submit your review:</p>
+                        
+                        <!--Rating-->
+                    <div class="form-group">
+                            <label class="col-lg-1 control-label">Rating</label>
+                            <div class="col-lg-12">
+                                   <div class="checkbox">
+                                    <label>
+                                        <input name="rating" type="radio" id="Very Poor" value="veryP">Very Poor
+                                    </label>
+                   
+                                
+                                    <label>
+                                        <input name="rating" type="radio" id="poor" value="poor">Poor
+                                    </label>
+                   
+                                
+                                    <label>
+                                       <input name="rating" type="radio" id="Average" value="ave">Average
+                                    </label>
+                   
+                                
+                                    <label>
+                                       <input name="rating" type="radio" id="Good" value="good">Good
+                                    </label>
+                   
+                                
+                                    <label>
+                                       <input name="rating" type="radio" id="Excellent" value="excell">Excellent
+                                    </label>
+                                 </div>
+                            </div>
+                    </div>                            
+
+
+
+                    <br><br>
+                    <h3><p>How would you rate the clenliness of the hospital</p></h3>
+                    <p>Submit your review:</p>
+
+                         <!--Rating-->
+                    <div class="form-group">
+                            <label class="col-lg-1 control-label">Rating</label>
+                            <div class="col-lg-12">
+                                   <div class="checkbox">
+                                    <label>
+                                        <input name="rate" type="radio" id="1" value="1">1
+                                    </label>
+                                    <label>
+                                        <input name="rate" type="radio" id="2" value="2">2
+                                    </label>
+                                    <label>
+                                       <input name="rate" type="radio" id="3" value="3">3
+                                    </label>
+                                    <label>
+                                       <input name="rate" type="radio" id="4" value="4">4
+                                    </label>
+                                    <label>
+                                       <input name="rate" type="radio" id="5" value="5">5
+                                    </label>
+                                    <label>
+                                       <input name="rate" type="radio" id="6" value="6">6
+                                    </label>
+                                    <label>
+                                        <input name="rate" type="radio" id="7" value="7">7
+                                    </label>
+                                    <label>
+                                       <input name="rate" type="radio" id="8" value="8">8
+                                    </label>
+                                    <label>
+                                       <input name="rate" type="radio" id="9" value="9">9
+                                    </label>
+                                    <label>
+                                       <input name="rate" type="radio" id="10" value="10">10
+                                    </label>
+
+                                 </div>
+                            </div>
+                    </div>          
+                   <br>
+                        <br>
+                        <br>
+                        <br>
+
+
+
+
+                </div> <!--col-md-6-->
+               
+            </div> <!--row-->
+                            </div><!--TAB1-->
+                            <div class="tab-pane" id="tab2">
+                             <div class = "row">
+               
+                                  
+
+                <div class = "col-md-6">
+
+                   <h3><a href = "#">Dates</a></h3>
+
+
+                   <h3><p>Between which dates would you like to receive an aftercare home visit?</p></h3>
+
+                            <!--Date of Birth-->
+                    <div class="form-group">
+                            <label class="col-lg-3 control-label">Pick a Date</label>
+                            <div class="col-lg-5">
+                                <input type="text" class="form-control" name="date" /> (YYYY/MM/DD)
+                            </div>
+                        </div>
+                   
+                </div> <!--col-md-6-->
+               
+                <div class = "col-md-6">
+                   
+                    <h3><a href = "#">Services</a></h3>
+
+                    <h3><p>Which of the following services did you think were exceptional?</p></h3>
+        <p>Submit your review:</p>
+
+                    <div class="form-group">
+                            <label class="col-lg-3 control-label">Pick as many you like</label>
+                            <div class="col-lg-5">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="services[]" value="N/A" /> N/A
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="services[]" value="nursing" /> Nursing
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="services[]" value="consultants" /> Consultants
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="services[]" value="doctors" /> Doctors
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="services[]" value="cleaning" /> Cleaning
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="services[]" value="surgoens" /> Surgoens
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+
+
+            
+                   
+                </div> <!--col-md-6-->
+               
+            </div> <!--row-->
+                            </div><!--TAB2-->
+                            <div class="tab-pane" id="tab3">
+                            <div class = "row">
+               
+                <div class = "col-md-12" >
+                   <br>
+                    <center><h3><p>Do you have any comments about the care you received during this visit</p></h3></center>
+                        <p>Submit your review:</p>
+
+                        Comments:<br />
+                        <textarea rows="6" cols="100">
+Hey..... Say Something!
+                        </textarea><br />
+
+                        <input type="submit" value="Submit" name="submit">
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+
+                        </div> <!--col-md-12-->
+               
+                </div> <!--row-->
+                            </div><!--TAB3-->
+                            <div class="tab-pane" id="tab4">
+                            This is our 4st tab...This is our 4st tab...This is our 4st tab...
+                            This is our 4st tab...This is our 4st tab...This is our 4st tab...
+                            </div><!--TAB4-->
+                        </div>  <!--TABS SECTIONS-->
+
+
+
+                    </div> <!--col-md-12-->
+                </div><!--row-->
+             </div><!--container-->
+           
+
+
+            
+
+                </form>
+
+        </div> <!--container-->
+
+
+               
+                <div class = "navbar navbar-default navbar-fixed-bottom">
+               
+                        <div class = "container">
+                                <p class = "navbar-text pull-left">Site Built By Paul McNeice</p>
+                                <a href = "https://www.youtube.com/watch?v=xoSZ5Hy48K4" class = "navbar-btn btn-danger btn pull-right">Subscribe on YouTube</a>
+                        </div>
+               
+                </div>
+
+
+              <!--contact form... ID contact calls modal--> 
+                <div class = "modal fade" id = "contact" role = "dialog"> 
+                    <div class = "modal-dialog">
+                        <div class = "modal-content">
+                            <form class = "form-horizontal">
+                                <div class = "modal-header">
+                                    <h4>Contact Aura HealthCare</h4>
+                                </div>
+                                <div class = "modal-body">
+                               
+                                    <div class = "form-group">
+                                       
+                                        <label for = "contact-name" class = "col-lg-2 control-label">Name:</label>
+                                        <div class = "col-lg-10">
+                                           
+                                            <input type = "text" class = "form-control" id = "contact-name" placeholder = "Full Name">
+                                           
+                                        </div>
+                                       
+                                    </div>
+                                   
+                                    <div class = "form-group">
+                                       
+                                        <label for = "contact-email" class = "col-lg-2 control-label">Email:</label>
+                                        <div class = "col-lg-10">
+                                           
+                                            <input type = "email" class = "form-control" id = "contact-email" placeholder = "you@example.com">
+                                           
+                                        </div>
+                                       
+                                    </div>
+                                   
+                                    <div class = "form-group">
+                                       
+                                        <label for = "contact-msg" class = "col-lg-2 control-label">Message:</label>
+                                        <div class = "col-lg-10">
+                                           
+                                            <textarea class = "form-control" rows = "8"></textarea>
+                                           
+                                        </div>
+                                       
+                                    </div>
+                               
+                                </div>
+
+                                <!--footer for contact form, has buttons-->
+                                <div class = "modal-footer">
+                            <a class = "btn btn-default" data-dismiss = "modal">Close</a>    
+                                    <button type="send" class="btn btn-primary">Send</button>
+
+                                </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                </form>
+
+
+</body>
+</html>
